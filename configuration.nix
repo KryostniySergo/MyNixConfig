@@ -119,6 +119,8 @@
     enable = true;
     enableSSHSupport = true;
   };
+  # FOR ZSH
+  programs.zsh.enable = true;
 
   # List services that you want to enable:
 
