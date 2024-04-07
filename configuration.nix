@@ -2,18 +2,15 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      inputs.home-manager.nixosModules.default
       ./main-user.nix
     ];
-
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  main-user.enable = true;
-  main-user.userName = "sergoza";
 
   # Bootloader.
   boot.loader.grub.enable = true;
@@ -85,18 +82,15 @@
   # services.xserver.libinput.enable = true;
 
   # # Define a user account. Don't forget to set a password with ‘passwd’.
-  # main-user.enable = true;
-  # main-user.userName = "sergoza";
+  main-user.enable = true;
+  main-user.userName = "sergoza";
 
-  # users.users.sergoza = {
-  #   isNormalUser = true;
-  #   description = "Sergoza";
-  #   extraGroups = [ "networkmanager" "wheel" ];
-  #   packages = with pkgs; [
-  #     firefox
-  #   #  thunderbird
-  #   ];
-  # };
+  home-manager = {
+    specialArgs = {inherit inputs;};
+    users = {
+      main-user.userName = import ./home.nix;
+    };
+  };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
