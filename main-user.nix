@@ -19,7 +19,7 @@ in
       isNormalUser = true;
       initialPassword = "12345";
       description = "main user";
-      shell = pgs.zsh;
+      # shell = pgs.zsh;
       extraGroups = [ "networkmanager" "wheel" ];
       packages = with pkgs; [
         firefox
