@@ -8,7 +8,12 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./main-user.nix
     ];
+
+  # Define a user account. Don't forget to set a password with ‘passwd’.
+  main-user.enable = true;
+  main-user.userName = "sergoza";
 
   # Bootloader.
   boot.loader.grub.enable = true;
@@ -79,16 +84,19 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.sergoza = {
-    isNormalUser = true;
-    description = "Sergoza";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      firefox
-    #  thunderbird
-    ];
-  };
+  # # Define a user account. Don't forget to set a password with ‘passwd’.
+  # main-user.enable = true;
+  # main-user.userName = "sergoza";
+
+  # users.users.sergoza = {
+  #   isNormalUser = true;
+  #   description = "Sergoza";
+  #   extraGroups = [ "networkmanager" "wheel" ];
+  #   packages = with pkgs; [
+  #     firefox
+  #   #  thunderbird
+  #   ];
+  # };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
